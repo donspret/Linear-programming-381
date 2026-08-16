@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LPR381Proj.Menus.AlgoMenu
+namespace LPR381Proj.Algorithms
 {
-    internal class RevisedSimplex
+    internal class PrimalSimplexSolver
     {
+        //display canonical form and tableau iterations
     }
 }

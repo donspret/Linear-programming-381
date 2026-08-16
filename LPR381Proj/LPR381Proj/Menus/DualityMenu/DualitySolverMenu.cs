@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LPR381Proj.Menus.AlgoMenu
+namespace LPR381Proj.Menus.DualityMenu
 {
-    internal class BranchAndBoundSimplex
+    internal class DualitySolverMenu
     {
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LPR381Proj.Algorithms
 {
-    internal class KnapsackNode
+    internal class BranchAndBoundNodeSolver
     {
     }
 }

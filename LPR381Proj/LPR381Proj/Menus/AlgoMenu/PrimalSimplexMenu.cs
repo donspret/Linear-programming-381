@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LPR381Proj.Menus.AlgoMenu
 {
-    internal class KnapsackSolver
+    internal class PrimalSimplexMenu
     {
     }
 }

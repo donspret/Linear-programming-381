@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LPR381Proj.Algorithms
+namespace LPR381Proj.Menus.AlgoMenu
 {
-    internal class RevisedSimplex
+    internal class BranchAndBoundMenu
     {
     }
 }

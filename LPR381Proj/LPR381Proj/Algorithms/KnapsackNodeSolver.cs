@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LPR381Proj.Menus.AlgoMenu
+namespace LPR381Proj.Algorithms
 {
-    internal class CuttingPlaneSolver
+    internal class KnapsackNodeSolver
     {
     }
 }

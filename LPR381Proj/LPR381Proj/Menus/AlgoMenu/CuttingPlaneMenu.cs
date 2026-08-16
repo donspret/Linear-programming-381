@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LPR381Proj.Menus.DualityMenu
+namespace LPR381Proj.Menus.AlgoMenu
 {
-    internal class DualModel
+    internal class CuttingPlaneMenu
     {
     }
 }
