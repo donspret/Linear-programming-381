@@ -43,14 +43,50 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithms\BranchAndBoundNode.cs" />
+    <Compile Include="Algorithms\BranchAndBoundSimplex.cs" />
+    <Compile Include="Algorithms\CuttingPlaneSolver.cs" />
+    <Compile Include="Algorithms\KnapsackNode.cs" />
+    <Compile Include="Algorithms\KnapsackSolver.cs" />
+    <Compile Include="Algorithms\RevisedSimplex.cs" />
+    <Compile Include="Algorithms\PrimalSimplex.cs" />
+    <Compile Include="Canonical\CanonicalForm.cs" />
+    <Compile Include="Duality\DualitySolver.cs" />
+    <Compile Include="Duality\DualModel.cs" />
+    <Compile Include="ErrorHandling\SpecialCaseHandler.cs" />
+    <Compile Include="Input\InputParser.cs" />
+    <Compile Include="Input\InputValidator.cs" />
+    <Compile Include="Menus\AlgoMenu\BranchAndBoundSimplex.cs" />
+    <Compile Include="Menus\AlgoMenu\CuttingPlaneSolver.cs" />
+    <Compile Include="Menus\AlgoMenu\KnapsackSolver.cs" />
+    <Compile Include="Menus\AlgoMenu\PrimalSimplex.cs" />
+    <Compile Include="Menus\AlgoMenu\RevisedSimplex.cs" />
+    <Compile Include="Menus\DualityMenu\DualitySolver.cs" />
+    <Compile Include="Menus\DualityMenu\DualModel.cs" />
+    <Compile Include="Menus\SensitivityMenu\RangeAnalysis.cs" />
+    <Compile Include="Menus\SensitivityMenu\SensitivityAnalyzer.cs" />
+    <Compile Include="Menus\SensitivityMenu\ShadowPrices.cs" />
+    <Compile Include="Models\Constraint.cs" />
+    <Compile Include="Models\IntegerProgram.cs" />
+    <Compile Include="Models\LinearProgram.cs" />
+    <Compile Include="Models\Solution.cs" />
+    <Compile Include="Models\Variable.cs" />
+    <Compile Include="Output\OutputResults.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sensitivity\RangeAnalysis.cs" />
+    <Compile Include="Sensitivity\SensitivityAnalyzer.cs" />
+    <Compile Include="Sensitivity\ShadowPrices.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include=".gitignore" />
+    <Folder Include="Tests\BranchAndBoundTests\" />
+    <Folder Include="Tests\KnapsackTests\" />
+    <Folder Include="Tests\RevisedSimplexTests\" />
+    <Folder Include="Tests\SensitivityTests\" />
+    <Folder Include="Tests\SimplexTests\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
