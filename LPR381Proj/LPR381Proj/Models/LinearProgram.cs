@@ -6,7 +6,18 @@ using System.Threading.Tasks;
 
 namespace LPR381Proj.Models
 {
-    internal class LinearProgram
+    public enum ObjectiveType
     {
+        Maximize,
+        Minimize
+    }
+
+    public class LinearProgram
+    {
+        public ObjectiveType Objective { get; set; }
+        public List<double> ObjectiveCoefficients { get; set; } = new List<double>();
+        public List<Constraint> Constraints { get; set; } = new List<Constraint>();
+        public List<VariableType> VariableTypes { get; set; } = new List<VariableType>();
+        public int VariableCount => ObjectiveCoefficients.Count;
     }
 }

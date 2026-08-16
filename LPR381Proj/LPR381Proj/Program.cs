@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LPR381Proj.Input;
+using LPR381Proj.Menus.AlgoMenu;
 
 namespace LPR381Proj
 {
-    internal class Program
+    class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Testing commit via github desktop");
+            PrimalSimplexMenu menu = new PrimalSimplexMenu();
+            menu.Run();
+
+            Console.WriteLine("Press any key to exit...");
             Console.ReadKey();
         }
     }

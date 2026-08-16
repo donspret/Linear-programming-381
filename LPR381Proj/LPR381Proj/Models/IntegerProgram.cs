@@ -6,7 +6,17 @@ using System.Threading.Tasks;
 
 namespace LPR381Proj.Models
 {
-    internal class IntegerProgram
+    public class IntegerProgram : LinearProgram
     {
+        public bool IsBinary { get; set; }
+
+        public IntegerProgram(LinearProgram baseLp)
+        {
+            Objective = baseLp.Objective;
+            ObjectiveCoefficients = baseLp.ObjectiveCoefficients;
+            Constraints = baseLp.Constraints;
+            VariableTypes = baseLp.VariableTypes;
+            IsBinary = VariableTypes.TrueForAll(t => t == VariableType.Binary);
+        }
     }
 }
