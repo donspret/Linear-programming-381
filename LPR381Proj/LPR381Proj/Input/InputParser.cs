@@ -36,6 +36,9 @@ namespace LPR381Proj.Input
                 {
                     case "bin": lp.VariableTypes.Add(VariableType.Binary); break;
                     case "int": lp.VariableTypes.Add(VariableType.Integer); break;
+                    case "urs": lp.VariableTypes.Add(VariableType.Unrestricted); break;
+                    case "-": lp.VariableTypes.Add(VariableType.NonPositive); break;
+                    case "+": lp.VariableTypes.Add(VariableType.Continuous); break;
                     default: lp.VariableTypes.Add(VariableType.Continuous); break;
                 }
             }

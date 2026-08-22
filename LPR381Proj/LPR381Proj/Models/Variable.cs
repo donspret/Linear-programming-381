@@ -13,7 +13,9 @@ namespace LPR381Proj.Models
         Integer,
         Slack,
         Surplus,
-        Artificial
+        Artificial,
+        Unrestricted,   // urs: free in sign, split into x+ - x- in canonical form
+        NonPositive     // "-": x <= 0, substituted as x = -y, y >= 0
     }
 
     public class Variable

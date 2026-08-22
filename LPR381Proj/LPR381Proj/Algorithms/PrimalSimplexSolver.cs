@@ -9,6 +9,8 @@ namespace LPR381Proj.Algorithms
 {
     public class PrimalSimplexSolver
     {
+        private const int MaxIterations = 1000;
+
         public Solution Solve(CanonicalForm cf)
         {
             Solution solution = new Solution();
@@ -87,24 +89,69 @@ namespace LPR381Proj.Algorithms
                 }
 
                 iteration++;
+                if (iteration > MaxIterations)
+                {
+                    solution.Status = SolutionStatus.IterationLimitReached;
+                    return solution;
+                }
             }
 
-            // Extract Solution
-            solution.OptimalValue = matrix[0, cols - 1];
+            // Infeasibility check: if any artificial variable is still in the basis
+            // with a nonzero value, the original problem has no feasible solution --
+            // the Big-M penalty couldn't drive it out, so this "optimum" is fake.
+            for (int i = 0; i < cf.NumConstraints; i++)
+            {
+                string basicName = cf.BasicVariables[i];
+                int basicColIdx = cf.VariableNames.IndexOf(basicName);
+                if (cf.ArtificialColumns.Contains(basicColIdx) && Math.Abs(matrix[i + 1, cols - 1]) > 1e-6)
+                {
+                    solution.Status = SolutionStatus.Infeasible;
+                    return solution;
+                }
+            }
+
+            // Extract raw values for every column as currently basic/non-basic
+            var rawValues = new Dictionary<string, double>();
             for (int j = 0; j < cf.VariableNames.Count; j++)
             {
                 string varName = cf.VariableNames[j];
                 int basicIndex = cf.BasicVariables.IndexOf(varName);
+                rawValues[varName] = basicIndex != -1 ? Math.Round(matrix[basicIndex + 1, cols - 1], 4) : 0.0;
+            }
 
-                if (basicIndex != -1)
+            // Reconstruct each ORIGINAL decision variable from its column(s):
+            //   Continuous        -> value = column value
+            //   NonPositive ("-") -> x = -y  (y is the column that was solved for)
+            //   Unrestricted      -> x = x+ - x-
+            foreach (var map in cf.VariableMap)
+            {
+                double posVal = rawValues[cf.VariableNames[map.PosIndex]];
+
+                if (map.Kind == VariableType.NonPositive)
                 {
-                    solution.VariableValues[varName] = Math.Round(matrix[basicIndex + 1, cols - 1], 4);
+                    solution.VariableValues[map.OriginalName] = Math.Round(-posVal, 4);
                 }
                 else
                 {
-                    solution.VariableValues[varName] = 0.0;
+                    double negVal = map.NegIndex != -1 ? rawValues[cf.VariableNames[map.NegIndex]] : 0.0;
+                    solution.VariableValues[map.OriginalName] = Math.Round(posVal - negVal, 4);
                 }
             }
+
+            // Also surface slack/surplus values (useful for sensitivity analysis later);
+            // artificials are internal bookkeeping only and are never reported.
+            for (int j = 0; j < cf.VariableNames.Count; j++)
+            {
+                if (cf.ArtificialColumns.Contains(j)) continue;
+                bool isDecisionColumn = cf.VariableMap.Any(m => m.PosIndex == j || m.NegIndex == j);
+                if (!isDecisionColumn)
+                    solution.VariableValues[cf.VariableNames[j]] = rawValues[cf.VariableNames[j]];
+            }
+
+            // The tableau was built to solve max(effective objective); for a Minimize
+            // problem that means it actually computed max(-z) = -z*, so flip it back.
+            double rawZ = matrix[0, cols - 1];
+            solution.OptimalValue = cf.Objective == ObjectiveType.Minimize ? -rawZ : rawZ;
 
             return solution;
         }
