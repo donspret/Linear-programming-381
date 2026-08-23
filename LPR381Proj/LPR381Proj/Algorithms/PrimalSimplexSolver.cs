@@ -96,9 +96,7 @@ namespace LPR381Proj.Algorithms
                 }
             }
 
-            // Infeasibility check: if any artificial variable is still in the basis
-            // with a nonzero value, the original problem has no feasible solution --
-            // the Big-M penalty couldn't drive it out, so this "optimum" is fake.
+            // Infeasibility check
             for (int i = 0; i < cf.NumConstraints; i++)
             {
                 string basicName = cf.BasicVariables[i];
@@ -110,36 +108,32 @@ namespace LPR381Proj.Algorithms
                 }
             }
 
-            // Extract raw values for every column as currently basic/non-basic
+            // Extract raw values for every column (Rounded to 3 decimal places)
             var rawValues = new Dictionary<string, double>();
             for (int j = 0; j < cf.VariableNames.Count; j++)
             {
                 string varName = cf.VariableNames[j];
                 int basicIndex = cf.BasicVariables.IndexOf(varName);
-                rawValues[varName] = basicIndex != -1 ? Math.Round(matrix[basicIndex + 1, cols - 1], 4) : 0.0;
+                rawValues[varName] = basicIndex != -1 ? Math.Round(matrix[basicIndex + 1, cols - 1], 3) : 0.0;
             }
 
-            // Reconstruct each ORIGINAL decision variable from its column(s):
-            //   Continuous        -> value = column value
-            //   NonPositive ("-") -> x = -y  (y is the column that was solved for)
-            //   Unrestricted      -> x = x+ - x-
+            // Reconstruct ORIGINAL decision variables (Rounded to 3 decimal places)
             foreach (var map in cf.VariableMap)
             {
                 double posVal = rawValues[cf.VariableNames[map.PosIndex]];
 
                 if (map.Kind == VariableType.NonPositive)
                 {
-                    solution.VariableValues[map.OriginalName] = Math.Round(-posVal, 4);
+                    solution.VariableValues[map.OriginalName] = Math.Round(-posVal, 3);
                 }
                 else
                 {
                     double negVal = map.NegIndex != -1 ? rawValues[cf.VariableNames[map.NegIndex]] : 0.0;
-                    solution.VariableValues[map.OriginalName] = Math.Round(posVal - negVal, 4);
+                    solution.VariableValues[map.OriginalName] = Math.Round(posVal - negVal, 3);
                 }
             }
 
-            // Also surface slack/surplus values (useful for sensitivity analysis later);
-            // artificials are internal bookkeeping only and are never reported.
+            // Surface slack/surplus values
             for (int j = 0; j < cf.VariableNames.Count; j++)
             {
                 if (cf.ArtificialColumns.Contains(j)) continue;
@@ -148,10 +142,10 @@ namespace LPR381Proj.Algorithms
                     solution.VariableValues[cf.VariableNames[j]] = rawValues[cf.VariableNames[j]];
             }
 
-            // The tableau was built to solve max(effective objective); for a Minimize
-            // problem that means it actually computed max(-z) = -z*, so flip it back.
+            // Final Z calculation (Rounded to 3 decimal places)
             double rawZ = matrix[0, cols - 1];
-            solution.OptimalValue = cf.Objective == ObjectiveType.Minimize ? -rawZ : rawZ;
+            double finalZ = cf.Objective == ObjectiveType.Minimize ? -rawZ : rawZ;
+            solution.OptimalValue = Math.Round(finalZ, 3);
 
             return solution;
         }

@@ -72,6 +72,7 @@
     <Compile Include="Models\LinearProgram.cs" />
     <Compile Include="Models\Solution.cs" />
     <Compile Include="Models\Variable.cs" />
+    <Compile Include="Output\MultiWriter.cs" />
     <Compile Include="Output\OutputResults.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
