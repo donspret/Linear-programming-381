@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LPR381Proj.Models;
+
 namespace LPR381Proj.Canonical
 {
     public class CanonicalForm
@@ -52,16 +53,40 @@ namespace LPR381Proj.Canonical
             cf.Objective = lp.Objective;
 
             int origVars = lp.VariableCount;
-            int numConstraints = lp.Constraints.Count;
+
+            // --- Step 0: Append upper bounds (x_j <= 1) for Binary variables ---
+            List<Constraint> inputConstraints = new List<Constraint>(lp.Constraints);
+            for (int j = 0; j < origVars; j++)
+            {
+                var vtype = (j < lp.VariableTypes.Count) ? lp.VariableTypes[j] : VariableType.Continuous;
+                if (vtype == VariableType.Binary)
+                {
+                    List<double> binCoeffs = new List<double>();
+                    for (int k = 0; k < origVars; k++)
+                    {
+                        binCoeffs.Add(k == j ? 1.0 : 0.0);
+                    }
+                    inputConstraints.Add(new Constraint(binCoeffs, RelationType.LessThanOrEqual, 1.0));
+                }
+            }
+
+            int numConstraints = inputConstraints.Count;
             cf.NumConstraints = numConstraints;
 
             // --- Step 1: normalize constraints so every RHS >= 0 ---
             // (Flipping the row's sign when RHS < 0 also flips <= into >= and vice versa;
             // Equal stays Equal. This is required before we can safely add a surplus/slack.)
             var norm = new List<NormalizedConstraint>();
-            foreach (var c in lp.Constraints)
+            foreach (var c in inputConstraints)
             {
                 var coeffs = new List<double>(c.Coefficients);
+
+                // Ensure the list is properly padded to match original variable count
+                while (coeffs.Count < origVars)
+                {
+                    coeffs.Add(0.0);
+                }
+
                 var rel = c.Relation;
                 var rhs = c.RHS;
 
@@ -148,7 +173,7 @@ namespace LPR381Proj.Canonical
 
             for (int i = 0; i < origVars; i++)
             {
-                double c = lp.ObjectiveCoefficients[i];
+                double c = i < lp.ObjectiveCoefficients.Count ? lp.ObjectiveCoefficients[i] : 0.0;
                 var map = cf.VariableMap[i];
 
                 if (map.Kind == VariableType.NonPositive)

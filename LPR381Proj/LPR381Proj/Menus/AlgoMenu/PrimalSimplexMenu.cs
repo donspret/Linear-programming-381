@@ -16,8 +16,8 @@ namespace LPR381Proj.Menus.AlgoMenu
         public void Run()
         {
             Console.Clear();
-            Console.WriteLine("=== PRIMAL SIMPLEX SOLVER ===");
-
+            Console.WriteLine("=== WELCOME TO PRIMAL SIMPLEX SOLVER ===");
+            Console.WriteLine();
             // Check current execution directory first
             string baseDir = AppDomain.CurrentDomain.BaseDirectory;
             string defaultPath = Path.Combine(baseDir, "InputFile.txt");
@@ -33,8 +33,21 @@ namespace LPR381Proj.Menus.AlgoMenu
                 }
             }
 
-            Console.Write($"Enter file path (Press Enter for default: '{defaultPath}'): ");
+            Console.WriteLine("Pre-Loaded Files Avaiable:");
+            Console.WriteLine("InputFile1.txt...Criteria Example");
+            Console.WriteLine("InputFile2.txt...Max Primal Simplex Example");
+            Console.WriteLine("InputFile3.txt...URS Example");
+            Console.WriteLine("InputFile4.txt...Another Max Primal Simplex Example");
+            Console.WriteLine("InputFile5.txt...Min Primal Simplex Example");
+            Console.WriteLine("InputFile6.txt...Infeasible Primal Simplex Example");
+            Console.WriteLine("InputFile7.txt...Unbounded Primal Simplex Example");
+            Console.WriteLine();
+            Console.WriteLine("You are otherwise welcome to upload your own new file located on your local PC.");
+            Console.WriteLine();
+            Console.Write($"Enter file path to upload your file or select pre-loaded files (Alternatively, press Enter to use default file - InputFile1.txt), see example file path : '{defaultPath}'): ");
             string inputPath = Console.ReadLine();
+
+           
 
             if (string.IsNullOrWhiteSpace(inputPath))
             {

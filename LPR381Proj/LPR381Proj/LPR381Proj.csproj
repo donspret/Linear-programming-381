@@ -50,6 +50,7 @@
     <Compile Include="Algorithms\KnapsackSolver.cs" />
     <Compile Include="Algorithms\RevisedSimplexSolver.cs" />
     <Compile Include="Algorithms\PrimalSimplexSolver.cs" />
+    <Compile Include="Algorithms\TwoPhaseSimplexSolver.cs" />
     <Compile Include="Canonical\CanonicalForm.cs" />
     <Compile Include="Duality\DualitySolver.cs" />
     <Compile Include="Duality\DualModel.cs" />
