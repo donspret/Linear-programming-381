@@ -30,11 +30,11 @@ namespace LPR381Proj.Output
             Console.WriteLine($"Status: {solution.Status}");
             if (solution.Status == SolutionStatus.Optimal)
             {
-                Console.WriteLine($"Optimal Objective Value (Z): {solution.OptimalValue:0.00}");
+                Console.WriteLine($"Optimal Objective Value (Z): {solution.OptimalValue:0.000}");
                 Console.WriteLine("\nDecision Variable Values:");
                 foreach (var kvp in solution.VariableValues)
                 {
-                    Console.WriteLine($"  {kvp.Key} = {kvp.Value}");
+                    Console.WriteLine($"  {kvp.Key} = {kvp.Value:0.000}");
                 }
             }
             Console.WriteLine("==============================================\n");

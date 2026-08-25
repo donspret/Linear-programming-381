@@ -1,0 +1,31 @@
+﻿
+================ CANONICAL FORM ================
+Variables: x1, x2, s1, s2
+Initial Basic Variables: x1, s2
+================================================
+
+
+================ SIMPLEX ITERATIONS ================
+--- Tableau Iteration 0 ---
+Basic           x1        x2        s1        s2       RHS
+Z            -3,00     -2,00      0,00      0,00      0,00
+s1            0,03      0,02      1,00      0,00      1,00
+s2            0,02      0,02      0,00      1,00      1,00
+
+--- Tableau Iteration 1 ---
+Basic           x1        x2        s1        s2       RHS
+Z             0,00      0,00    120,00      0,00    120,00
+x1            1,00      0,67     40,00      0,00     40,00
+s2            0,00      0,01     -0,80      1,00      0,20
+
+================ FINAL RESULT ================
+Status: Optimal
+Optimal Objective Value (Z): 120,000
+
+Decision Variable Values:
+  x1 = 40,000
+  x2 = 0,000
+  s1 = 0,000
+  s2 = 0,200
+==============================================
+

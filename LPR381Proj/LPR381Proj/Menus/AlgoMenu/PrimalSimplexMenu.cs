@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.IO;
 using LPR381Proj.Algorithms;
 using LPR381Proj.Canonical;
 using LPR381Proj.Input;
 using LPR381Proj.Models;
 using LPR381Proj.Output;
+
 namespace LPR381Proj.Menus.AlgoMenu
 {
     public class PrimalSimplexMenu
@@ -18,6 +19,7 @@ namespace LPR381Proj.Menus.AlgoMenu
             Console.Clear();
             Console.WriteLine("=== WELCOME TO PRIMAL SIMPLEX SOLVER ===");
             Console.WriteLine();
+
             // Check current execution directory first
             string baseDir = AppDomain.CurrentDomain.BaseDirectory;
             string defaultPath = Path.Combine(baseDir, "InputFile.txt");
@@ -33,7 +35,7 @@ namespace LPR381Proj.Menus.AlgoMenu
                 }
             }
 
-            Console.WriteLine("Pre-Loaded Files Avaiable:");
+            Console.WriteLine("Pre-Loaded Files Available:");
             Console.WriteLine("InputFile1.txt...Criteria Example");
             Console.WriteLine("InputFile2.txt...Max Primal Simplex Example");
             Console.WriteLine("InputFile3.txt...URS Example");
@@ -46,8 +48,6 @@ namespace LPR381Proj.Menus.AlgoMenu
             Console.WriteLine();
             Console.Write($"Enter file path to upload your file or select pre-loaded files (Alternatively, press Enter to use default file - InputFile1.txt), see example file path : '{defaultPath}'): ");
             string inputPath = Console.ReadLine();
-
-           
 
             if (string.IsNullOrWhiteSpace(inputPath))
             {
@@ -64,12 +64,33 @@ namespace LPR381Proj.Menus.AlgoMenu
             LinearProgram lp = parser.ParseFile(inputPath);
 
             CanonicalForm cf = CanonicalForm.ConvertToCanonical(lp);
-            OutputResults.DisplayCanonicalForm(cf);
-
             PrimalSimplexSolver solver = new PrimalSimplexSolver();
             Solution solution = solver.Solve(cf);
 
-            OutputResults.DisplaySolution(solution);
+            // Determine directory and create unique file name using current timestamp
+            string targetDirectory = Path.GetDirectoryName(inputPath);
+            if (string.IsNullOrEmpty(targetDirectory))
+            {
+                targetDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            }
+
+            string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+            string outputFileName = $"OutputResult_{timestamp}.txt";
+            string outputPath = Path.Combine(targetDirectory, outputFileName);
+
+            // Write output to Console and save to the new unique text file
+            TextWriter originalConsole = Console.Out;
+            using (MultiWriter writer = new MultiWriter(outputPath))
+            {
+                Console.SetOut(writer);
+
+                OutputResults.DisplayCanonicalForm(cf);
+                OutputResults.DisplaySolution(solution);
+
+                Console.SetOut(originalConsole);
+            }
+
+            Console.WriteLine($"[SUCCESS] Output saved to: {outputPath}\n");
         }
     }
 }
