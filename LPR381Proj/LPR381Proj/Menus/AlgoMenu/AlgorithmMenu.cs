@@ -5,8 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using LPR381Proj.Models;
 using LPR381Proj.Menus.AlgoMenu;
-using System;
-using LPR381Proj.Menus.AlgoMenu;
 
 namespace LPR381Proj.Menus
 {
