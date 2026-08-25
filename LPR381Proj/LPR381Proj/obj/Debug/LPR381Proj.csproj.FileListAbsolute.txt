@@ -6,3 +6,10 @@ C:\Users\milen\source\repos\Linear-programming-381\LPR381Proj\LPR381Proj\bin\Deb
 C:\Users\milen\source\repos\Linear-programming-381\LPR381Proj\LPR381Proj\obj\Debug\LPR381Proj.exe
 C:\Users\milen\source\repos\Linear-programming-381\LPR381Proj\LPR381Proj\obj\Debug\LPR381Proj.pdb
 C:\Users\milen\source\repos\Linear-programming-381\LPR381Proj\LPR381Proj\obj\Debug\LPR381Proj.exe.config
+C:\Users\mlots\source\repos\Linear-programming-381\LPR381Proj\LPR381Proj\obj\Debug\LPR381Proj.csproj.AssemblyReference.cache
+C:\Users\mlots\source\repos\Linear-programming-381\LPR381Proj\LPR381Proj\obj\Debug\LPR381Proj.csproj.CoreCompileInputs.cache
+C:\Users\mlots\source\repos\Linear-programming-381\LPR381Proj\LPR381Proj\obj\Debug\LPR381Proj.exe
+C:\Users\mlots\source\repos\Linear-programming-381\LPR381Proj\LPR381Proj\obj\Debug\LPR381Proj.pdb
+C:\Users\mlots\source\repos\Linear-programming-381\LPR381Proj\LPR381Proj\bin\Debug\LPR381Proj.exe.config
+C:\Users\mlots\source\repos\Linear-programming-381\LPR381Proj\LPR381Proj\bin\Debug\LPR381Proj.exe
+C:\Users\mlots\source\repos\Linear-programming-381\LPR381Proj\LPR381Proj\bin\Debug\LPR381Proj.pdb
