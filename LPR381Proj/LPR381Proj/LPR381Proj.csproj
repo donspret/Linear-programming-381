@@ -67,6 +67,7 @@
     <Compile Include="Menus\AlgoMenu\KnapsackMenu.cs" />
     <Compile Include="Menus\AlgoMenu\PrimalSimplexMenu.cs" />
     <Compile Include="Menus\AlgoMenu\RevisedSimplexMenu.cs" />
+    <Compile Include="Menus\AlgoMenu\TwoPhaseSimplexMenu.cs" />
     <Compile Include="Menus\DualityMenu\DualitySolverMenu.cs" />
     <Compile Include="Menus\DualityMenu\DualModelMenu.cs" />
     <Compile Include="Menus\SensitivityMenu\RangeAnalysis.cs" />

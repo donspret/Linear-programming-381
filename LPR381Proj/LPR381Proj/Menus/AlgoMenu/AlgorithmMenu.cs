@@ -34,10 +34,15 @@ namespace LPR381Proj.Menus
                 "5. Cutting Plane Algorithm");
 
             Console.WriteLine(
+                "6. Two-Phase Simplex Algorithm");
+
+            Console.WriteLine("7. Exit");
+
+            Console.WriteLine(
                 "========================================");
 
             Console.Write(
-                "Enter option (1-5): ");
+                "Enter option (1-7): ");
 
             string choice =
                 Console.ReadLine();
@@ -62,6 +67,16 @@ namespace LPR381Proj.Menus
 
                 case "5":
                     new CuttingPlaneMenu().Run();
+                    break;
+
+                case "6":
+                    new TwoPhaseSimplexMenu().Run();
+                    break;
+
+                case "7":
+                    Console.WriteLine(
+                        "Exiting the program.");
+                    Environment.Exit(0);
                     break;
 
                 default:
