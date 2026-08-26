@@ -53,8 +53,7 @@ namespace LPR381Proj.Menus
                     break;
 
                 case "3":
-                    Console.WriteLine(
-                        "Branch & Bound Simplex menu is not implemented here.");
+                    new BranchAndBoundMenu().Run();
                     break;
 
                 case "4":
